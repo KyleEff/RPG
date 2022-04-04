@@ -9,19 +9,19 @@ namespace RPG
     public abstract class Fighter : IAbilities
     {
         // Attributes
-        const double CRIT = 1.5; // Critical damage
+        public const double CRIT = 1.5; // Critical damage
         const double DEF = 0.5; // Blocked damage
 
-        public static int
+        public int
             attDmg, // Attack damage
             currHP, // Current Hit Points
             maxHP; // Maximum HP
 
-        public static bool dead; // Alive or dead
+        public bool dead; // Alive or dead
+
+        public Target opponent; // Target Fighter (opponent)
 
         static Random random; // Prayers to RNJesus, Our Lord of RNG
-
-        static Target opponent; // Target Fighter (opponent)
 
         // Default Constructor
         public Fighter()
@@ -44,7 +44,7 @@ namespace RPG
         }
 
         // Stat print
-        public static void displayStats()
+        public void displayStats()
         {
             Console.WriteLine(
 
@@ -53,7 +53,9 @@ namespace RPG
             );
         }
 
-        public static void takeDamage(int d)
+        public virtual void takeAction() { }
+
+        public void takeDamage(int d)
         {
             if (random.Next(5) != 1)
             {
@@ -75,7 +77,7 @@ namespace RPG
             }
         }
 
-        public static void death()
+        public void death()
         {
             if (currHP <= 0)
             {
@@ -87,7 +89,7 @@ namespace RPG
         }
 
 
-        public static void attackEnemy() {
+        public void attackEnemy() {
 
             opponent();
         }
@@ -99,36 +101,26 @@ namespace RPG
             displayStats();
             return "";
         }
-
-        public static void Main(string[] args)
-            { new Player(); }
     }
 
     public class Enemy : Fighter {
 
-        public void takeAction() {
+        public override void takeAction() {
 
-            //attackEnemy();
+            attackEnemy();
         }
     }
 
     public class Player : Fighter {
 
-        static int potions;
+        int potions;
 
         public Player() {
 
             potions = 2;
-
-            try { takeAction(); }
-            catch (Exception e) {
-
-                Console.WriteLine(e.Message);
-                takeAction();
-            }
         }
 
-        public static void takeAction()
+        public override void takeAction()
         {
             int choice;
 
@@ -136,7 +128,7 @@ namespace RPG
 
                 "Which action would you like to take?" +
                 "\n1: Attack Enemy" +
-                "\n2: Drink Potion"
+                $"\n2: Drink Potion ({potions} remaining)"
             );
 
             choice = int.Parse(Console.ReadLine());
@@ -160,7 +152,7 @@ namespace RPG
             displayStats();
         }
 
-        public static void drinkPotion()
+        public void drinkPotion()
         {
             if (currHP == maxHP)
                 maxHP = currHP += 2;
@@ -169,6 +161,4 @@ namespace RPG
             potions--;
         }
     }
-
-
 }
