@@ -6,10 +6,13 @@ namespace RPG
 {
     class Match
     {
+        //
+        public static int round = 0;
         Fighter player;
         Fighter[] fighters;
         bool done;
 
+        // Constructor
         public Match() {
 
             greeting();
@@ -31,8 +34,15 @@ namespace RPG
                 {
                     foreach (var f in fighters)
                     {
-                        f.takeAction();
+                        if (f.opponent.death())
+                            f.acquireTarget(fighters);
+
+                        if (!f.dead)
+                            f.takeAction();
+
                         checkForVictory();
+
+                        round++;
                     }
                 }
                 catch (Exception e) { Console.WriteLine(e.Message); }
@@ -97,6 +107,11 @@ namespace RPG
             {
                 for (int i = 0; i < 10; i++)
                     Console.WriteLine("YOU LOSE!!");
+
+                foreach (var f in fighters)
+                    if (!f.dead)
+                        for (int i = 0; i < 10; i++)
+                            Console.WriteLine($"{f} wins!!");
             }
 
             else {

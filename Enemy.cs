@@ -20,7 +20,7 @@ namespace RPG
 
         //
         public new void displayStats()
-            { Console.WriteLine($"Enemy {enemyNum}: Current HP: {currHP}\n"); }
+            { Console.WriteLine($"Enemy {enemyNum} HP: {currHP}\n"); }
 
         //
         public override void takeAction()
@@ -36,11 +36,8 @@ namespace RPG
             {
                 currHP -= d; // subtract damage from current HP
 
-                Console.WriteLine(
-
-                    $"Enemy {enemyNum} takes {d} damage.\n" +
-                    $"Enemy {enemyNum} HP: {currHP}"
-                );
+                Console.WriteLine($"Enemy {enemyNum} takes {d} damage.");
+                displayStats();
                 death(); // checks for death
             }
 
@@ -51,9 +48,9 @@ namespace RPG
                 Console.WriteLine(
                     
                     $"Enemy {enemyNum} blocked half of the damage, " +
-                    $"and is hit by the resulting {d * DEF} damage.\n" +
-                    $"Enemy {enemyNum} HP: {currHP}"
+                    $"and is hit by the resulting {d * DEF} damage."
                 );
+                displayStats();
                 death(); // checks for death
             }
         }
@@ -65,7 +62,7 @@ namespace RPG
         //
         public override bool death()
         {
-            if (currHP <= 0)
+            if (currHP <= 0 && !dead)
             {
                 dead = true;
 

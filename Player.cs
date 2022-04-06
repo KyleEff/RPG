@@ -33,7 +33,8 @@ namespace RPG
                 $"\n2: Drink Potion ({potions} remaining)"
             );
 
-            choice = int.Parse(Console.ReadLine());
+            choice = 1; // debug statement
+            //choice = int.Parse(Console.ReadLine());
 
             switch (choice)
             {
@@ -62,7 +63,7 @@ namespace RPG
                 Console.WriteLine(
 
                     $"You take {d} damage.\n" +
-                    $"Current HP: {currHP}"
+                    $"Current HP: {currHP}\n"
                 );
                 death(); // checks for death
             }
@@ -75,7 +76,7 @@ namespace RPG
                     
                     "You blocked half of the damage, " +
                     $"and are hit by the resulting {d * DEF} damage.\n" +
-                    $"Current HP: {currHP}"
+                    $"Current HP: {currHP}\n"
                 );
                 death(); // checks for death
             }
@@ -106,10 +107,13 @@ namespace RPG
 
             if (currHP <= 0)
             {
-                dead = true;
+                if (!dead) {
 
-                for (var i = 0; i < 10; i++)
-                    Console.WriteLine($"YOU DIED");
+                    dead = true;
+
+                    for (var i = 0; i < 10; i++)
+                        Console.WriteLine($"YOU DIED");
+                }
             }
             return dead;
         }

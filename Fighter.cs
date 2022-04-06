@@ -26,7 +26,7 @@ namespace RPG
         {
             random = new Random();
 
-            maxHP = currHP = 10;
+            maxHP = currHP = 10.0;
             attDmg = 2;
             dead = false;
         }
@@ -61,21 +61,22 @@ namespace RPG
 
         public void acquireTarget(Fighter f) {
 
-            if (f != this)
+            if (f != this || opponent.dead)
                 opponent = f;
             else throw new Exception("CANNOT TARGET SELF");
         }
 
         public void acquireTarget(Fighter[] f) {
-        
-            opponent = f[random.Next(4)];
-            if (opponent == this)
+
+            opponent = f[random.Next(5)];
+
+            if (opponent == this || opponent.dead)
                 acquireTarget(f);
         }
 
         public void acquireTarget(Fighter[] f, int index) {
             
-            if (f[index] != this)
+            if (f[index] != this || opponent.dead)
                 opponent = f[index];
             else throw new Exception("CANNOT TARGET SELF");
         }
