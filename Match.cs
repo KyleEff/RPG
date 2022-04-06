@@ -6,30 +6,106 @@ namespace RPG
 {
     class Match
     {
+        Fighter player;
+        Fighter[] fighters;
         bool done;
 
-        Player player;
-        Enemy opponent;
-
         public Match() {
-        
-            player = new Player();
-            //opponent = new Enemy();
+
+            greeting();
+
+            fighters = new Fighter[5];
+            player = fighters[0] = new Player();
+
+            for (var i = 1; i < fighters.Length; i++) 
+                fighters[i] = new Enemy();
+            
+            foreach (var f in fighters)
+                f.acquireTarget(fighters);
 
             done = false;
 
+            do {
+
+                try
+                {
+                    foreach (var f in fighters)
+                    {
+                        f.takeAction();
+                        checkForVictory();
+                    }
+                }
+                catch (Exception e) { Console.WriteLine(e.Message); }
+            } while (!done);
+
+
+            /*
+            player = new Player();
+            opponents = new Enemy[5];
+            player.opponent = opponents[0];
+
+            foreach (var o in opponents)
+                o.opponent = player;
+
+            done = false;
+
+            int i = 0; // index variable
+
             while (!done) {
 
-                try { player.takeAction(); }
-                catch (Exception e) { Console.WriteLine(e.Message); }
-                
+                if (!player.dead && !opponents.dead)
+                    try {
+                        player.takeAction();
+                        opponent.takeAction();
+                    }
+                    catch (Exception e) { Console.WriteLine(e.Message); }
+                else done = true;
+            }*/
+        }
 
-                //if (player.dead)
-                {
-                   
-                }
+        //
+        void greeting() {
+
+            Console.WriteLine(
+                
+                "WELCOME TO THE RPG\n" + 
+                "There are 5 Fighters, and you are one of them.\n" +
+                "Fight to the death!\n"
+            );
+        }
+
+        //
+        void checkForVictory() {
+
+            int numDead = 0;
+
+            foreach (var f in fighters)
+                if (f.dead)
+                    numDead++;
+
+            if (numDead == fighters.Length - 1) 
+                victory();
+            
+        }
+
+        //
+        void victory() {
+
+            done = true;
+
+            if (player.dead)
+            {
+                for (int i = 0; i < 10; i++)
+                    Console.WriteLine("YOU LOSE!!");
+            }
+
+            else {
+
+                for (int i = 0; i < 10; i++)
+                    Console.WriteLine("YOU WIN!!");
             }
         }
+
 
         public static void Main(string[] args) { new Match(); }
     }
