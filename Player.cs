@@ -6,19 +6,14 @@ namespace RPG
 {
     public class Player : Fighter
     {
-        //
+        // Attributes
         int potions;
 
-        //
+        // Constructor
         public Player()
         {
             potions = 2;
             displayStats();
-        }
-
-        void debug() {
-        
-            
         }
 
         //
@@ -33,7 +28,7 @@ namespace RPG
                 $"\n2: Drink Potion ({potions} remaining)"
             );
 
-            choice = 1; // debug statement
+            choice = random.Next(1, 3); // debug statement
             //choice = int.Parse(Console.ReadLine());
 
             switch (choice)
@@ -112,7 +107,7 @@ namespace RPG
                     dead = true;
 
                     for (var i = 0; i < 10; i++)
-                        Console.WriteLine($"YOU DIED");
+                        Console.WriteLine("YOU DIED");
                 }
             }
             return dead;

@@ -37,7 +37,7 @@ namespace RPG
         public virtual void attackEnemy(ref Fighter o) { }
         public virtual bool death() { return dead; }
 
-        // this function runs to test other functions
+        // this function is for testing other functions
         void debug() {
 
             while (currHP > 0)
@@ -68,7 +68,7 @@ namespace RPG
 
         public void acquireTarget(Fighter[] f) {
 
-            opponent = f[random.Next(5)];
+            opponent = f[random.Next(f.Length)];
 
             if (opponent == this || opponent.dead)
                 acquireTarget(f);

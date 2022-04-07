@@ -64,10 +64,13 @@ namespace RPG
         {
             if (currHP <= 0 && !dead)
             {
-                dead = true;
+                if (!dead)
+                {
+                    dead = true;
 
-                for (var i = 0; i < 10; i++)
-                    Console.WriteLine($"ENEMY {enemyNum} DIED");
+                    for (var i = 0; i < 10; i++)
+                        Console.WriteLine($"ENEMY {enemyNum} DIED");
+                }
             }
             return dead;
         }

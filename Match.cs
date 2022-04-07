@@ -4,77 +4,32 @@ using System.Text;
 
 namespace RPG
 {
-    class Match
+    delegate void Run(); // delegate that runs the match
+
+class Match
     {
-        //
-        public static int round = 0;
-        Fighter player;
-        Fighter[] fighters;
-        bool done;
+        // Attributes
+        const int NUM_FIGHTERS = 5; // Number of Fighters in the round
+        public static int round = 0; // Round Number (not used right now)
+        static Fighter player; // player variable
+        static Fighter[] fighters; // array of fighters
+        static bool done; // Match is done
+        Run r; // Match delegate
 
         // Constructor
         public Match() {
 
-            greeting();
+            // Delegate list
+            r += greeting;
+            r += buildMatch;
+            r += runMatch;
 
-            fighters = new Fighter[5];
-            player = fighters[0] = new Player();
-
-            for (var i = 1; i < fighters.Length; i++) 
-                fighters[i] = new Enemy();
-            
-            foreach (var f in fighters)
-                f.acquireTarget(fighters);
-
-            done = false;
-
-            do {
-
-                try
-                {
-                    foreach (var f in fighters)
-                    {
-                        if (f.opponent.death())
-                            f.acquireTarget(fighters);
-
-                        if (!f.dead)
-                            f.takeAction();
-
-                        checkForVictory();
-
-                        round++;
-                    }
-                }
-                catch (Exception e) { Console.WriteLine(e.Message); }
-            } while (!done);
-
-
-            /*
-            player = new Player();
-            opponents = new Enemy[5];
-            player.opponent = opponents[0];
-
-            foreach (var o in opponents)
-                o.opponent = player;
-
-            done = false;
-
-            int i = 0; // index variable
-
-            while (!done) {
-
-                if (!player.dead && !opponents.dead)
-                    try {
-                        player.takeAction();
-                        opponent.takeAction();
-                    }
-                    catch (Exception e) { Console.WriteLine(e.Message); }
-                else done = true;
-            }*/
+            // Run Delegate
+            r();
         }
 
-        //
-        void greeting() {
+        // Greeting function
+        static void greeting() {
 
             Console.WriteLine(
                 
@@ -84,44 +39,83 @@ namespace RPG
             );
         }
 
-        //
-        void checkForVictory() {
+        // This function builds the match
+        static void buildMatch() {
 
-            int numDead = 0;
+            fighters = new Fighter[NUM_FIGHTERS]; // Array with a number of Fighters
+            player = fighters[0] = new Player(); // Player variable assignment for easy reference
 
+            // This loop cycles through the rest of the array and creates enemies
+            for (var i = 1; i < fighters.Length; i++)
+                fighters[i] = new Enemy();
+
+            // This loop cycles through each fighter and then randomly selects a targer from an array
             foreach (var f in fighters)
-                if (f.dead)
-                    numDead++;
+                f.acquireTarget(fighters);
 
-            if (numDead == fighters.Length - 1) 
-                victory();
+            // The match is NOT done
+            done = false;
+        }
+
+        // Runs the match that has been set up
+        static void runMatch() {
+            // Start of dowhile loop
+            do
+            {
+                try // acquireTarget and takeAction throw Exceptions
+                {
+                    foreach (var f in fighters) // For each fighter in the array of fighters
+                    {
+                        if (f.opponent.dead) // If the current fighter's opponent is dead
+                            f.acquireTarget(fighters); // Choose another random fighter
+
+                        if (!f.dead) // If the current fighter is not dead
+                            f.takeAction(); // The fighter will take action
+
+                        round++; // Increment round number
+                        checkForVictory(); // Check the round for a victory
+                    }
+                }
+                catch (Exception e) { Console.WriteLine(e.Message); } // Catch exception and read message
+            } while (!done); // While the match is not done
+        }
+
+        // This function checks the round for a victory
+        static void checkForVictory() {
+
+            int numDead = 0; // Number of dead counter
+
+            foreach (var f in fighters) // for each fighter
+                if (f.dead) // if the fighter is dead
+                    numDead++; // Increment counter
+
+            if (numDead == fighters.Length - 1) // If there is only one fighter left
+                victory(); // Victory is declared
             
         }
 
-        //
-        void victory() {
+        // This function declares a victory
+        static void victory() {
 
-            done = true;
+            done = true; // The match is done
 
-            if (player.dead)
+            if (player.dead) // If the player is dead
             {
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < 10; i++) // Rub it in
                     Console.WriteLine("YOU LOSE!!");
 
-                foreach (var f in fighters)
-                    if (!f.dead)
-                        for (int i = 0; i < 10; i++)
+                foreach (var f in fighters) // For each fighter in the array
+                    if (!f.dead) // If the fighter is NOT dead
+                        for (int i = 0; i < 10; i++) // Print the winner
                             Console.WriteLine($"{f} wins!!");
             }
 
-            else {
-
-                for (int i = 0; i < 10; i++)
+            else  // if the player is NOT dead
+                for (int i = 0; i < 10; i++) // Congratulate the player
                     Console.WriteLine("YOU WIN!!");
-            }
         }
 
-
+        // Driver function
         public static void Main(string[] args) { new Match(); }
     }
 }
