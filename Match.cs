@@ -49,7 +49,7 @@ class Match
             for (var i = 1; i < fighters.Length; i++)
                 fighters[i] = new Enemy();
 
-            // This loop cycles through each fighter and then randomly selects a targer from an array
+            // This loop cycles through each fighter and then randomly selects a target from an array
             foreach (var f in fighters)
                 f.acquireTarget(fighters);
 
@@ -90,7 +90,7 @@ class Match
                     numDead++; // Increment counter
 
             if (numDead == fighters.Length - 1) // If there is only one fighter left
-                victory(); // Victory is declared
+                victory(); // A victory is declared
             
         }
 

@@ -30,7 +30,7 @@ namespace RPG
         }
 
         //
-        public override void takeDamage(int d)
+        public override void takeDamage(double d)
         {
             if (random.Next(5) != 2)
             {
@@ -43,7 +43,7 @@ namespace RPG
 
             else
             {
-                currHP -= (int)(d * DEF);
+                currHP -= (d * DEF);
 
                 Console.WriteLine(
                     

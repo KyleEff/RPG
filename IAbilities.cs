@@ -6,7 +6,7 @@ namespace RPG
 {
     public interface IAbilities
     {
-        void takeDamage(int d);
+        void takeDamage(double d);
         bool death();
         void takeAction();
     }

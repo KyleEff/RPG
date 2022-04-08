@@ -10,12 +10,10 @@ namespace RPG
         protected const double CRIT = 1.5; // Critical damage
         protected const double DEF = 0.5; // Blocked damage
 
-        protected int
-            attDmg; // Attack damage
-            
         protected double
             currHP, // Current Hit Points
-            maxHP; // Maximum HP
+            maxHP, // Maximum HP
+            attDmg; // Attack damage
 
         public bool dead; // Alive or dead
         public Fighter opponent; // Target Fighter (opponent)
@@ -33,7 +31,7 @@ namespace RPG
 
         // Virtual functions for override
         public virtual void takeAction() { }
-        public virtual void takeDamage(int d) { }
+        public virtual void takeDamage(double d) { }
         public virtual void attackEnemy(ref Fighter o) { }
         public virtual bool death() { return dead; }
 
