@@ -63,26 +63,33 @@ namespace RPG
          *  3. Selected from an array of Fighters
          */
 
+        // 1.
         public void acquireTarget(Fighter f) {
 
+            // If the fighter is not itself, or if the current target is dead
             if (f != this || opponent.dead)
-                opponent = f;
-            else throw new Exception("CANNOT TARGET SELF");
+                opponent = f; // select target from parameter
+            else throw new Exception("CANNOT TARGET SELF"); // or else throw
         }
 
+        // 2.
         public void acquireTarget(Fighter[] f) {
 
-            opponent = f[random.Next(f.Length)];
+            opponent = f[random.Next(f.Length)]; // Randomly index a Fighter
 
+            // If the target is itself, or if the target is dead
             if (opponent == this || opponent.dead)
+                // Call the function again, resulting in another random selection
                 acquireTarget(f);
         }
 
+        //3.
         public void acquireTarget(Fighter[] f, int index) {
             
+            // If the selected Fighter is itself or current target is dead
             if (f[index] != this || opponent.dead)
-                opponent = f[index];
-            else throw new Exception("CANNOT TARGET SELF");
+                opponent = f[index]; // selected target
+            else throw new Exception("CANNOT TARGET SELF"); // or else throw
         }
     }
 }
