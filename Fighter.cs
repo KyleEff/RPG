@@ -24,9 +24,9 @@ namespace RPG
         {
             random = new Random();
 
-            maxHP = currHP = 10.0;
-            attDmg = 2;
-            dead = false;
+            maxHP = currHP = 10.0; // Setting Max and Current HP
+            attDmg = 2; // Default FIGHTER attack damage
+            dead = false; // The FIGHTER is NOT dead
         }
 
         // Virtual functions for override
@@ -43,7 +43,7 @@ namespace RPG
             death();
         }
 
-        // Stat print
+        // Full stat print
         public void displayStats()
         {
             Console.WriteLine(
@@ -53,9 +53,15 @@ namespace RPG
                 $"Attack Damage: {attDmg}\n" +
                 $"Crit Multiplier: {CRIT * 100}%\n" + 
                 $"Defense Multiplier: {DEF * 100}%\n"
-                //+$"TARGET: {opponent}\n"
             );
         }
+
+        /*
+         * The following functions are for aquiring targets three different ways:
+         *  1. Single Fighter
+         *  2. Randomly from an array of Fighters
+         *  3. Selected from an array of Fighters
+         */
 
         public void acquireTarget(Fighter f) {
 

@@ -1,4 +1,13 @@
-﻿using System;
+﻿/*
+ * Kyle Free
+ * GAME 1343 - Game Simulation and Programming I
+ * 4/10/2022
+ * Fighting RPG
+ *  This program runs a match that pits a number of
+ *  fighters against each other in a text-based free for all deathmatch
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -116,6 +125,6 @@ class Match
         }
 
         // Driver function
-        public static void Main(string[] args) { new Match(); }
+        public static void Main(string[] args) { new Match(); } // Creates a new match
     }
 }
