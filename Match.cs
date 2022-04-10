@@ -7,6 +7,8 @@
  *  fighters against each other in a text-based free for all deathmatch
  */
 
+// As of right now the "round" counter is not used, or else each round would be separated
+
 using System;
 using System.Collections.Generic;
 using System.Text;
