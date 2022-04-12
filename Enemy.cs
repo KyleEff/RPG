@@ -65,13 +65,9 @@ namespace RPG
         {
             if (currHP <= 0 && !dead) // If current HP is less than or equal to zero, AND NOT dead
             {
-                if (!dead) // If the enemy is NOT dead
-                {
-                    dead = true; // die
-
-                    for (var i = 0; i < 10; i++) // Display death
+                dead = true; // die
+                for (var i = 0; i < 10; i++) // Display death
                         Console.WriteLine($"ENEMY {enemyNum} DIED");
-                }
             }
             return dead;
         }
