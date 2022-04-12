@@ -102,13 +102,9 @@ namespace RPG
 
             if (currHP <= 0 && !dead) // If current HP is less than or equal to zero, AND NOT dead
             {
-                if (!dead) { //  If NOT dead
-
-                    dead = true; // die
-
-                    for (var i = 0; i < 10; i++) // rub it in ten times
+                dead = true; // die
+                for (var i = 0; i < 10; i++) // rub it in ten times
                         Console.WriteLine("YOU DIED");
-                }
             }
             return dead;
         }

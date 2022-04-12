@@ -4,7 +4,7 @@ using System.Text;
 
 namespace RPG
 {
-    // This interface is for three methods
+    // This interface is for four methods
     public interface IAbilities {
 
         // This function is for the character taking an action
