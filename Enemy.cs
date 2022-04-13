@@ -42,7 +42,7 @@ namespace RPG
                 death(); // check for death
             }
 
-            else // any other number but 2
+            else // IF the number is TWO, BLOCK DAMAGE
             {
                 currHP -= (d * DEF); // DAMAGE BLOCKED
 
